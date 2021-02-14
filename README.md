@@ -1,1 +1,1 @@
-сайт: https://www.deadinside.students.nomoredomains.monster/
+сайт: https://www.api.deadinside.students.nomoredomains.monster/

@@ -1,1 +1,1 @@
-# movies-explorer-api
+сайт: https://www.api.deadinside.students.nomoredomains.monster/

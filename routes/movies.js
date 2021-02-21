@@ -14,8 +14,8 @@ router.post('/', celebrate({
     image: Joi.string().required().regex(/https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*(gif|jpg|jpeg|tiff|png)\s*$/i),
     trailer: Joi.string().required().regex(/https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*\s*$/i),
     thumbnail: Joi.string().required().regex(/https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*(gif|jpg|jpeg|tiff|png)\s*$/i),
-    nameRU: Joi.string().required().regex(/^[а-яё]*$/),
-    nameEN: Joi.string().required().regex(/^[a-z]*$/),
+    nameRU: Joi.string().required().regex(/^[а-яёa-z0-9-._~:/?#[\]@!$&'()*+,;=\s\w]*$/i),
+    nameEN: Joi.string().required().regex(/^[a-z0-9-._~:/?#[\]@!$&'()*+,;=\s\w]*$/i),
   }).unknown(true),
 }), createMovie);
 

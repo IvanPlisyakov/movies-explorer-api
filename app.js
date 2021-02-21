@@ -6,39 +6,30 @@ const { errors } = require('celebrate');
 const routers = require('./routes/index.js');
 
 const limiter = require('./middlewares/rate-limit');
+const { centarlErrors } = require('./middlewares/central-errors');
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
-
 const app = express();
 
-mongoose.connect(`mongodb://localhost:27017/${process.env.DATABASE_URL}`, {
+mongoose.connect(process.env.DATABASE_URL, {
+  useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
 });
 
 app.use(helmet());
+app.use(requestLogger);
 app.use(limiter);
 app.use(bodyParser.json());
-app.use(requestLogger);
 app.use('/', routers);
-app.use((req, res, next) => {
+app.use(() => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
 app.use(errorLogger);
 app.use(errors());
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-});
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-});
+app.use(centarlErrors);
+
+app.listen(PORT);

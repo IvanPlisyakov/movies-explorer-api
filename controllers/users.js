@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 const NotFoundError = require('../errors/not-found-err');
+const CommonError = require('../errors/common-err');
 require('dotenv').config();
 
 const login = (req, res, next) => {
@@ -24,16 +25,17 @@ const createUsers = (req, res, next) => {
       if (!user) {
         return bcrypt.hash(req.body.password, 10)
           .then((hash) => User.create({
+            name: req.body.name,
             email: req.body.email,
             password: hash, // записываем хеш в базу
           }))
           .then((readyUser) => {
-            res.status(201).send(readyUser);
+            res.status(201).send({ email: readyUser.email, name: readyUser.name });
           })
           .catch(next);
       }
 
-      return res.status(409).send({ message: 'Пользователь с таким email уже существует' });
+      throw new CommonError('Пользователь с таким email уже существует', 409);
     })
     .catch(next);
 };
@@ -41,6 +43,18 @@ const createUsers = (req, res, next) => {
 const getUsers = (req, res, next) => {
   User.find({})
     .then((users) => { res.status(200).send(users); })
+    .catch(next);
+};
+
+const getUser = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Нет пользователя с таким id');
+      }
+
+      res.status(200).send(user);
+    })
     .catch(next);
 };
 
@@ -63,5 +77,5 @@ const changeUser = (req, res, next) => {
 };
 
 module.exports = {
-  createUsers, login, getUsers, changeUser,
+  createUsers, login, getUsers, getUser, changeUser,
 };

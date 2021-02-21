@@ -3,29 +3,28 @@
       "browser": true,
       "amd": true,
       "node": true
-
   },
   "extends": [
       "airbnb-base",
       "eslint:recommended",
       "plugin:node/recommended"
   ],
-  "parserOptions": {
+  /*"parserOptions": {
       "ecmaFeatures": {
           "jsx": true
       },
       "ecmaVersion": 12,
       "sourceType": "module"
-  },
-  "plugins": [
+  },*/
+  /*"plugins": [
       "react"
-  ],
+  ],*/
   "rules": {
-    "no-console": "off",
-    "no-unused-vars": "off",
-    "no-underscore-dangle": "off",
-    "javascript.validate.enable": "off",
+    /*"no-console": "off",
+    "no-unused-vars": "off",*/
+    "no-underscore-dangle": "off"
+    /*"javascript.validate.enable": "off",
     "javascript.suggestionActions.enabled": "off",
-    "func-names": "off"
+    "func-names": "off"*/
   }
 }

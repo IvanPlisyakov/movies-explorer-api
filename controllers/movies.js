@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
 const NotFoundError = require('../errors/not-found-err');
+const CommonError = require('../errors/common-err');
 
 const getMovies = (req, res, next) => {
   Movie.find({})
@@ -36,7 +37,7 @@ const deleteMovie = (req, res, next) => {
         throw new NotFoundError('Карточка не найдена');
       }
       if (String(movie.owner) !== req.user._id) {
-        return res.status(403).send({ massage: 'Нельзя удалять чужие фильмы' });
+        throw new CommonError('Нельзя удалять чужие фильмы', 403);
       }
 
       return Movie.findByIdAndRemove(req.params.movieId)

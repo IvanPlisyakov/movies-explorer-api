@@ -3,17 +3,16 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const routers = require('./routes/index.js');
 
 const limiter = require('./middlewares/rate-limit');
 const { centarlErrors } = require('./middlewares/central-errors');
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-
 
 mongoose.connect(process.env.DATABASE_URL, {
   useUnifiedTopology: true,

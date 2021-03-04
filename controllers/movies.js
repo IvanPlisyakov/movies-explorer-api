@@ -12,22 +12,27 @@ const createMovie = (req, res, next) => {
   const {
     id, country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN,
   } = req.body;
-
-  Movie.create({
-    id,
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailer,
-    thumbnail,
-    owner: req.user._id,
-    nameRU,
-    nameEN,
-  })
-    .then((movie) => { res.status(200).send(movie); })
+  Movie.findOne({ id })
+    .then((movie) => {
+      if (!movie) {
+        Movie.create({
+          id,
+          country,
+          director,
+          duration,
+          year,
+          description,
+          image,
+          trailer,
+          thumbnail,
+          owner: req.user._id,
+          nameRU,
+          nameEN,
+        })
+          .then((readyMovie) => { res.status(200).send(readyMovie); })
+          .catch(next);
+      }
+    })
     .catch(next);
 };
 

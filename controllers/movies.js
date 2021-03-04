@@ -32,6 +32,8 @@ const createMovie = (req, res, next) => {
           .then((readyMovie) => { res.status(200).send(readyMovie); })
           .catch(next);
       }
+
+      throw new CommonError('Такой фильм уже существует', 409);
     })
     .catch(next);
 };

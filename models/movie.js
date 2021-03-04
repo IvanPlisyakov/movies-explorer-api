@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 // const validator = require('validator');
 
 const movieSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    required: true,
+  },
   country: {
     type: String,
     required: true,

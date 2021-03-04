@@ -7,6 +7,7 @@ const {
 router.get('/', getMovies);
 router.post('/', celebrate({
   body: Joi.object().keys({
+    id: Joi.string().required().regex(/^[0-9]*$/),
     country: Joi.string().required(),
     director: Joi.string().required(),
     year: Joi.string().required().regex(/^[0-9]*$/),

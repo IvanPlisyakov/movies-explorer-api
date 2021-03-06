@@ -10,7 +10,6 @@ router.post('/', celebrate({
     id: Joi.string().required().regex(/^[0-9]*$/),
     country: Joi.string().required(),
     director: Joi.string().required(),
-
     year: Joi.string().required().regex(/^[0-9]*$/),
     description: Joi.string().required(),
     image: Joi.string().required().regex(/https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*(gif|jpg|jpeg|tiff|png)\s*$/i),

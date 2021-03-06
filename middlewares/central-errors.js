@@ -1,5 +1,6 @@
 module.exports.centarlErrors = (err, req, res, next) => {
   const { statusCode = 500, message } = err;
+  console.log(statusCode, message);
   res
     .status(statusCode)
     .send({

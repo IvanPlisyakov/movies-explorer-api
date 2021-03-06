@@ -15,7 +15,7 @@ const createMovie = (req, res, next) => {
   Movie.findOne({ id })
     .then((movie) => {
       if (!movie) {
-        Movie.create({
+        return Movie.create({
           id,
           country,
           director,
@@ -29,11 +29,14 @@ const createMovie = (req, res, next) => {
           nameRU,
           nameEN,
         })
-          .then((readyMovie) => { res.status(200).send(readyMovie); })
+          .then((readyMovie) => {
+            console.log(readyMovie);
+            return res.status(200).send(readyMovie);
+          })
           .catch(next);
       }
 
-      throw new CommonError('Такой фильм уже существует', 409);
+      throw new CommonError('Such a film already exists', 409);
     })
     .catch(next);
 };
@@ -45,12 +48,12 @@ const deleteMovie = (req, res, next) => {
         throw new NotFoundError('Карточка не найдена');
       }
       if (String(movie.owner) !== req.user._id) {
-        throw new CommonError('Нельзя удалять чужие фильмы', 403);
+        throw new CommonError("You can't delete other people's movies", 403);
       }
 
       return Movie.findByIdAndRemove(req.params.movieId)
         .then(() => {
-          res.send(movie);
+          res.status(200).send(movie);
         });
     })
     .catch(next);

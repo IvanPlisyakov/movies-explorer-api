@@ -6,7 +6,6 @@ const { errors, isCelebrate } = require('celebrate');
 const cors = require('cors');
 const routers = require('./routes/index.js');
 
-const { celebrateErrors } = require('./middlewares/celebrateErrors');
 const limiter = require('./middlewares/rate-limit');
 const { centarlErrors } = require('./middlewares/central-errors');
 const NotFoundError = require('./errors/not-found-err');
@@ -31,14 +30,14 @@ app.use('/', routers);
 app.use(() => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
-app.use((err, req, res, next) => {
+/* app.use((err, req, res, next) => {
   if (err.details) {
-    // console.log(err.details.get('body').details[0].path);
+    console.log(err.details.get('body').details[0].path);
     return res.status(400).send({ messege: 'Ошибка валидации', keys: err.details.get('body').details[0].path});
   }
 
   return next(err);
-});
+}); */
 app.use(errorLogger);
 app.use(errors());
 app.use(centarlErrors);

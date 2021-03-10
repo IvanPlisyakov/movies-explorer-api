@@ -68,7 +68,7 @@ const changeUser = (req, res, next) => {
   )
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Данные об информации профиля не пришли');
+        throw new NotFoundError('Data about the profile information was not received');
       }
 
       res.status(200).send(user);

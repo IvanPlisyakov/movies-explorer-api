@@ -14,7 +14,7 @@ module.exports.auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret');//
+    payload = jwt.verify(token, 'dev-secret');// process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret'
   } catch (err) {
     throw new CommonError('Необходима авторизация', 401);
   }

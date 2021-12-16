@@ -23,7 +23,8 @@
     /*"no-console": "off",
     "no-unused-vars": "off",*/
     "no-undef": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "linebreak-style": "off"
     /*"javascript.validate.enable": "off",
     "javascript.suggestionActions.enabled": "off",
     "func-names": "off"*/

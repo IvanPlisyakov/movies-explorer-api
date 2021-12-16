@@ -35,7 +35,7 @@ const createUsers = (req, res, next) => {
           .catch(next);
       }
 
-      throw new CommonError('Пользователь с таким email уже существует', 409);
+      throw new CommonError('A user with this email already exists', 409);
     })
     .catch(next);
 };
@@ -50,7 +50,7 @@ const getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Нет пользователя с таким id');
+        throw new NotFoundError('There is no user with this id');
       }
 
       res.status(200).send(user);

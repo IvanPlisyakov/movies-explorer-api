@@ -30,7 +30,7 @@ const createMovie = (req, res, next) => {
           nameEN,
         })
           .then((readyMovie) => {
-            console.log(readyMovie);
+            // console.log(readyMovie);
             return res.status(200).send(readyMovie);
           })
           .catch(next);

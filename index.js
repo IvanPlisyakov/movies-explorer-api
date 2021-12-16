@@ -19,7 +19,9 @@ mongoose.connect('mongodb+srv://IvanPlisyakov:actiVision12@cluster-mesto.ndo6c.m
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-});
+})
+  .then(() => console.log('mongo connected'))
+  .catch((err) => {console.log(err)});
 
 app.use(cors());
 app.use(helmet());
@@ -34,4 +36,6 @@ app.use(errorLogger);
 app.use(errors());
 app.use(centarlErrors);
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});
